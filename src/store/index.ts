@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { Action, combineReducers } from 'redux';
-import { createWrapper } from 'next-redux-wrapper';
+import { createWrapper } from './next-redux-wrapper';
 
 import { reducer as generic } from './slices/generic/slice';
 import { reducer as page } from './slices/page/slice';

@@ -1,7 +1,6 @@
 import { AppThunk } from '../../index';
 
 import { setData } from './slice';
-import { PageData } from './model';
 
 export const fetchPageData =
   (name: string): AppThunk =>

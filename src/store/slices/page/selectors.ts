@@ -1,5 +1,5 @@
 import { AppState } from '../../index';
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import { PageState } from './model';
 
 const slice = (state: AppState): PageState => state.page;

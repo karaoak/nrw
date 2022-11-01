@@ -15,6 +15,7 @@ interface CustomAppProps extends Omit<AppProps, 'pageProps'> {
 const App = ({ Component, ...rest }: CustomAppProps) => {
   console.log('_app');
   const { store, props } = wrapper.useWrappedStore(rest);
+  console.log('store in app: ', JSON.stringify(store.getState()))
   return (
     <Provider store={store}>
       <Component {...props.pageProps} />

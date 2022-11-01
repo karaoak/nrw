@@ -25,10 +25,12 @@ const Page = ({ name }: PageProps) => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   console.log(`[name]:getServerSideProps`);
+
   // @ts-ignore
   const { name } = ctx.params;
 
   await store.dispatch(fetchPageData(name));
+  console.log('store in getServerSideProps: ', JSON.stringify(store.getState()));
 
   return {
     props: {
