@@ -4,8 +4,9 @@ import { createWrapper } from './next-redux-wrapper';
 
 import { reducer as generic } from './slices/generic/slice';
 import { reducer as page } from './slices/page/slice';
+import { reducer as detail } from './slices/detail/slice';
 
-const reducers = { generic, page };
+const reducers = { detail, generic, page };
 
 const reducer = combineReducers(reducers);
 

@@ -3,26 +3,28 @@ import { HYDRATE } from 'next-redux-wrapper';
 import { GenericState } from './model';
 
 const initialState: GenericState = {
-  data: null,
+    data: null,
 };
 
 export const slice = createSlice({
-  name: 'generic',
+    name: 'generic',
 
-  initialState,
+    initialState,
 
-  reducers: {
-    setGeneric(state, action) {
-      state.data = action.payload;
+    reducers: {
+        setGeneric(state, action) {
+            state.data = action.payload;
+        },
     },
-  },
 
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      console.log(`generic slice : ${JSON.stringify(action)}`);
-      return { ...state, ...action.payload.generic };
+    extraReducers: {
+        [HYDRATE]: (state, action) => {
+            if (action.payload.generic.data !== initialState.data) {
+                console.log(`generic slice : ${JSON.stringify(action)}`);
+                return { ...state, ...action.payload.generic };
+            }
+        },
     },
-  },
 });
 
 export const { setGeneric } = slice.actions;

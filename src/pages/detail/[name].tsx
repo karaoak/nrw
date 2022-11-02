@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { wrapper } from '../store';
-import { fetchPageData } from '../store/slices/page/thunks';
-import { selectPageFullName } from '../store/slices/page/selectors';
-import { Navigation } from '../components/Navigation';
-import { Header } from '../components/Header';
+import { wrapper } from '../../store';
+import { fetchDetailData } from '../../store/slices/detail/thunks';
+import { selectDetailFullName } from '../../store/slices/detail/selectors';
+import { Navigation } from '../../components/Navigation';
+import { Header } from '../../components/Header';
 
 interface PageProps {
     name: string;
@@ -12,7 +12,7 @@ interface PageProps {
 
 const Page = ({ name }: PageProps) => {
     console.log(`[name]`);
-    const pageFullName = useSelector(selectPageFullName);
+    const pageFullName = useSelector(selectDetailFullName);
 
     return (
         <div>
@@ -29,7 +29,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     // @ts-ignore
     const { name } = ctx.params;
 
-    await store.dispatch(fetchPageData(name));
+    await store.dispatch(fetchDetailData(name));
     console.log('store in getServerSideProps: ', JSON.stringify(store.getState()));
 
     return {

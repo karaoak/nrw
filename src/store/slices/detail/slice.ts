@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import { PageState } from './model';
+import { DetailState } from './model';
 
-const initialState: PageState = {
+const initialState: DetailState = {
     data: null,
 };
 
 export const slice = createSlice({
-    name: 'page',
+    name: 'detail',
     initialState,
     reducers: {
         setData(state, action) {
@@ -16,10 +16,10 @@ export const slice = createSlice({
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
-            console.log('state: ', JSON.stringify(state, null, 4));
-            if (action.payload.page.data !== initialState.data) {
-                console.log(`page slice    : ${JSON.stringify(action)}`);
-                return { ...state, ...action.payload.page };
+            console.log('action: ', JSON.stringify(action, null, 4));
+            if (action.payload.detail.data !== initialState.data) {
+                console.log(`detail slice    : ${JSON.stringify(action)}`);
+                return { ...state, ...action.payload.detail };
             }
         },
     },
