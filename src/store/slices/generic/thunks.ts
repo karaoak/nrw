@@ -11,9 +11,8 @@ export const fetchAppData = (): AppThunk => async (dispatch) => {
         setGeneric({
             appName: 'Test App',
             appVersion: '1.0.0',
-            // This is broken
-            // timeStamp: new Date().getTime(),
-            timeStamp: 42,
+            // This works now
+            timeStamp: new Date().getTime(),
         })
     );
 };
