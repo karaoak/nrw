@@ -16,7 +16,6 @@ export const slice = createSlice({
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
-            console.log('state: ', JSON.stringify(state, null, 4));
             if (action.payload.page.data !== initialState.data) {
                 console.log(`page slice    : ${JSON.stringify(action)}`);
                 return { ...state, ...action.payload.page };

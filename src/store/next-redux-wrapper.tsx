@@ -54,6 +54,7 @@ const initStore = <S extends Store>({ makeStore, context = {} }: InitStoreOption
     const createStore = () => makeStore(context);
 
     if (getIsServer()) {
+        // @ts-ignore
         const req: any = (context as NextPageContext)?.req || (context as AppContext)?.ctx?.req;
         if (req) {
             // ATTENTION! THIS IS INTERNAL, DO NOT ACCESS DIRECTLY ANYWHERE ELSE

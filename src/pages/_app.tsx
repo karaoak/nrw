@@ -16,7 +16,7 @@ const App = ({ Component, ...rest }: CustomAppProps) => {
     // console.log('rest: ', JSON.stringify(rest, null, 4));
     console.log('_app');
     const { store, props } = wrapper.useWrappedStore(rest);
-    console.log('store in app: ', JSON.stringify(store.getState()));
+    // console.log('store in app: ', JSON.stringify(store.getState()));
     return (
         <Provider store={store}>
             <Component {...props.pageProps} />

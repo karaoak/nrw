@@ -11,7 +11,7 @@ interface PageProps {
 }
 
 const Page = ({ name }: PageProps) => {
-    console.log(`[name]`);
+    console.log(`datail/[name]`);
     const pageFullName = useSelector(selectDetailFullName);
 
     return (
@@ -24,13 +24,12 @@ const Page = ({ name }: PageProps) => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-    console.log(`[name]:getServerSideProps`);
+    console.log(`detail/[name]:getServerSideProps`);
 
     // @ts-ignore
     const { name } = ctx.params;
 
     await store.dispatch(fetchDetailData(name));
-    console.log('store in getServerSideProps: ', JSON.stringify(store.getState()));
 
     return {
         props: {
