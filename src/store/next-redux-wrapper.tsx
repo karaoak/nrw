@@ -1,7 +1,3 @@
-import App, { AppContext, AppInitialProps } from 'next/app';
-import React, { useLayoutEffect, useMemo, useRef } from 'react';
-import { Provider } from 'react-redux';
-import { Store } from 'redux';
 import {
     GetServerSideProps,
     GetServerSidePropsContext,
@@ -10,7 +6,14 @@ import {
     NextComponentType,
     NextPageContext,
 } from 'next';
+import App, { AppContext, AppInitialProps } from 'next/app';
 import { useRouter } from 'next/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { useLayoutEffect, useMemo, useRef } from 'react';
+import { Provider } from 'react-redux';
+import { Store } from 'redux';
+
+/* eslint-disable @typescript-eslint/ban-types */
 
 /**
  * Quick note on Next.js return types:
@@ -32,7 +35,8 @@ export const HYDRATE = '__NEXT_REDUX_WRAPPER_HYDRATE__';
 
 const getIsServer = () => typeof window === 'undefined';
 
-// const useBrowserLayoutEffect = getIsServer() ? () => undefined : useLayoutEffect;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const useBrowserLayoutEffect = getIsServer() ? () => undefined : useLayoutEffect;
 
 const getDeserializedState = <S extends Store>(initialState: any, { deserializeState }: Config<S> = {}) =>
     deserializeState ? deserializeState(initialState) : initialState;
@@ -164,6 +168,7 @@ export const createWrapper = <S extends Store>(makeStore: MakeStore<S>, config: 
         if (!state) {
             return;
         }
+        console.log('actually HYDRATE');
         store.dispatch({
             type: HYDRATE,
             payload: getDeserializedState<S>(state, config),
@@ -171,13 +176,16 @@ export const createWrapper = <S extends Store>(makeStore: MakeStore<S>, config: 
     };
 
     const useHydrate = (store: S, state: any) => {
+        console.log('useHydrate');
         const prevRoute = useRef('');
 
         const { asPath } = useRouter();
+        const basePath = asPath.split('?')[0];
 
-        const newPage = prevRoute.current !== asPath;
+        const newPage = prevRoute.current !== basePath;
+        console.log({ basePath, newPage, prevRoute: prevRoute.current });
 
-        prevRoute.current = asPath;
+        prevRoute.current = basePath;
 
         useMemo(() => {
             if (!getIsServer() && newPage) hydrate(store, state);
@@ -253,7 +261,7 @@ export const createWrapper = <S extends Store>(makeStore: MakeStore<S>, config: 
 
     const withRedux = (Component: NextComponentType | App | any) => {
         console.warn(
-            '/!\\ You are using legacy implementaion. Please update your code: use createWrapper() and wrapper.useWrappedStore().'
+            '/!\\ You are using legacy implementation. Please update your code: use createWrapper() and wrapper.useWrappedStore().'
         );
 
         //TODO Check if pages/_app was wrapped so there's no need to wrap a page itself
@@ -290,7 +298,7 @@ export const createWrapper = <S extends Store>(makeStore: MakeStore<S>, config: 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default <S extends Store>(makeStore: MakeStore<S>, config: Config<S> = {}) => {
     console.warn(
-        '/!\\ You are using legacy implementaion. Please update your code: use createWrapper() and wrapper.withRedux().'
+        '/!\\ You are using legacy implementation. Please update your code: use createWrapper() and wrapper.withRedux().'
     );
     return createWrapper(makeStore, config).withRedux;
 };
